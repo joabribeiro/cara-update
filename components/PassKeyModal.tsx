@@ -3,7 +3,6 @@
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -13,18 +12,49 @@ import {
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { decryptKey, encryptKey } from "@/lib/utils";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const PassKeyModal = () => {
   const router = useRouter();
+  const path = usePathname();
   const [isOpen, setIsOpen] = useState(true);
   const [passKey, setPassKey] = useState("");
   const [error, setError] = useState("");
+
+  const encryptedKey =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("accessKey")
+      : null;
+
+  useEffect(() => {
+    const accessKey = encryptedKey && decryptKey(encryptedKey)
+    if(path) {
+      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+        setIsOpen(false);
+        router.push('/admin');
+      } else {
+        setIsOpen(true); 
+      }
+    }
+  }, [encryptedKey]);
+
+  const validatePasskey = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    if (passKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+      const encryptedKey = encryptKey(passKey);
+      localStorage.setItem("accessKey", encryptedKey);
+      setIsOpen(false);
+    } else {
+      setError("Invalid passkey. Please try again.");
+    }
+  };
 
   const closeModal = () => {
     setIsOpen(false);
@@ -51,7 +81,11 @@ const PassKeyModal = () => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div>
-          <InputOTP maxLength={6} value={passKey} onChange={(value) => setPassKey(value)}>
+          <InputOTP
+            maxLength={6}
+            value={passKey}
+            onChange={(value) => setPassKey(value)}
+          >
             <InputOTPGroup className="shad-otp">
               <InputOTPSlot className="shad-otp-slot" index={0} />
               <InputOTPSlot className="shad-otp-slot" index={1} />
@@ -61,14 +95,17 @@ const PassKeyModal = () => {
               <InputOTPSlot className="shad-otp-slot" index={5} />
             </InputOTPGroup>
           </InputOTP>
-          {error && <p className="shad-error text-14-regular mt-4 flex justify-center">
-                {error}
-            </p>}
+          {error && (
+            <p className="shad-error text-14-regular mt-4 flex justify-center">
+              {error}
+            </p>
+          )}
         </div>
         <AlertDialogFooter>
-          <AlertDialogAction onClick={(e) => validatePasskey(e)}
+          <AlertDialogAction
+            onClick={(e) => validatePasskey(e)}
             className="shad-primary-btn w-full"
-            >
+          >
             Enter Admin Passkey
           </AlertDialogAction>
         </AlertDialogFooter>
