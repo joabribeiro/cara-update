@@ -34,6 +34,10 @@ export function  DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
   })
 
+console.log("collumns", columns);
+console.log("data", data);
+
+
   return (
     <div className="rounded-md border">
       <Table>
