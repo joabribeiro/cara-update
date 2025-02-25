@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Image from "next/image";
 
 import { StatusIcon } from "@/constants";
-
+ 
 export const StatusBadge = ({ status }: { status: Status }) => {
   return (
     <div

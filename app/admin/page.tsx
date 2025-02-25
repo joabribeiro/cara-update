@@ -9,6 +9,9 @@ import Link from "next/link";
 const Admin = async () => {
 
   const appointments = await getRecentAppointmentList()
+
+
+ 
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header ">
@@ -58,9 +61,10 @@ const Admin = async () => {
 
         <DataTable columns={columns} data={appointments.documents}/>
 
+
       </main>
     </div>
   );
 };
 
-export default Admin;
+export default Admin;  
