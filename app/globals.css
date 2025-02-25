@@ -348,14 +348,3 @@
 .PhoneInputInput::placeholder {
   color: #1a1d21;
 }
-
-
-
-/* @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-} */
