@@ -57,6 +57,7 @@ const Admin = async () => {
             label="Cancelled Appointments"
             icon="/assets/icons/cancelled.svg"
           />
+          
         </section>
 
         <DataTable columns={columns} data={appointments.documents}/>
