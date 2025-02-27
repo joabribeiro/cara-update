@@ -6,7 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-//
+import { getUser } from "@/lib/actions/patient.actions";
+
 const Success = async ({
   params: { userId },
   searchParams,
@@ -17,6 +18,10 @@ const Success = async ({
   const doctor = Doctors.find(
     (doc) => doc.name === appointment.primaryPhysician
   );
+  const user = await getUser(userId);
+
+  
+
   return (
     <div className="flex h-screen max-h-screen px-[5%]">
       <div className="success-img">
@@ -55,11 +60,11 @@ const Success = async ({
             <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
           </div>
           <div className="flex gap-2">
-            <Image 
-            src="/assets/icons/calendar.svg"
-            height={24}
-            width={24}
-            alt="calendar"
+            <Image
+              src="/assets/icons/calendar.svg"
+              height={24}
+              width={24}
+              alt="calendar"
             />
             <p>{formatDateTime(appointment.schedule).dateTime}</p>
           </div>
