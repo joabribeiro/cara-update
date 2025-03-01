@@ -2,7 +2,6 @@
 
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,9 +17,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
-import { Check } from "lucide-react";
+
 import { Checkbox } from "./ui/checkbox";
-import { Label } from "./ui/label";
+
 
 interface CustomProps {
   control: Control<any>;
@@ -92,6 +91,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
             placeholder={placeholder}
             international
             withCountryCallingCode
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             value={field.value as E164Number | undefined}
             onChange={field.onChange}
             className="input-phone"

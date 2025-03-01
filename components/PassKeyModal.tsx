@@ -41,6 +41,7 @@ const PassKeyModal = () => {
         setIsOpen(true); 
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [encryptedKey]);
 
   const validatePasskey = (

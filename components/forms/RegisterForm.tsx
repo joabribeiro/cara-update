@@ -8,9 +8,9 @@ import { Form, FormControl } from "@/components/ui/form";
 import CustomFormField from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { useState } from "react";
-import { PatientFormValidation, UserFormValidation } from "@/lib/validation";
+import { PatientFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
-import { createUser, registerPatient } from "@/lib/actions/patient.actions";
+import { registerPatient } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./PatientForm";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import {
@@ -23,8 +23,7 @@ import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import FileUploader from "../FileUploader";
-import { Bird } from "lucide-react";
-import { register } from "module";
+
 
 const RegisterForm = ({ user }: { user: User }) => {
   
@@ -66,6 +65,7 @@ async function onSubmit(values: z.infer<typeof PatientFormValidation>) {
      }
 
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
      const patient = await registerPatient(patientData);  
 

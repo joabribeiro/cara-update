@@ -18,9 +18,11 @@ const Success = async ({
   const doctor = Doctors.find(
     (doc) => doc.name === appointment.primaryPhysician
   );
-  const user = await getUser(userId);
 
-  
+  // if(!doctor) return null
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const user = await getUser(userId);
 
   return (
     <div className="flex h-screen max-h-screen px-[5%]">
@@ -50,14 +52,18 @@ const Success = async ({
         <section className="request-details">
           <p>Requested appointment details:</p>
           <div className="flex items-center gap-3">
-            <Image
-              src={doctor?.image!}
-              alt="doctor"
-              width={100}
-              height={100}
-              className="size-6"
-            />
-            <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
+            {doctor && (
+              <>
+                <Image
+                  src={doctor.image}
+                  alt="doctor"
+                  width={100}
+                  height={100}
+                  className="size-6"
+                />
+                <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
+              </>
+            )}
           </div>
           <div className="flex gap-2">
             <Image
