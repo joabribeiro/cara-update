@@ -14,6 +14,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { getToken, saveToken } from "@/lib/token";
 import { decryptKey, encryptKey } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -28,7 +29,7 @@ const PassKeyModal = () => {
 
   const encryptedKey =
     typeof window !== "undefined"
-      ? window.localStorage.getItem("accessKey")
+      ? getToken()
       : null;
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const PassKeyModal = () => {
     e.preventDefault();
     if (passKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
       const encryptedKey = encryptKey(passKey);
-      localStorage.setItem("accessKey", encryptedKey);
+      saveToken(encryptedKey);
       setIsOpen(false);
     } else {
       setError("Invalid passkey. Please try again.");
