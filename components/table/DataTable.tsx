@@ -35,10 +35,6 @@ export function  DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
   })
 
-console.log("collumns", columns);
-console.log("data", data);
-
-
   return (
     <div className="data-table">
       <Table className="shad-table">

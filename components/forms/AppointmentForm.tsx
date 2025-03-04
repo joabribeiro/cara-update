@@ -51,7 +51,7 @@ const AppointmentForm = ({
 
 
   async function onSubmit(values: z.infer<typeof AppointmentFormValidation>) {
-    console.log("I am submitting", { type });
+  
 
     setIsLoading(true);
 
@@ -69,8 +69,6 @@ const AppointmentForm = ({
         status = "pending";
         break;
     }
-
-    console.log({ type });
 
     try {
       if (type === "create" && patientId) {
@@ -92,7 +90,6 @@ const AppointmentForm = ({
           );
         }
       } else {
-        console.log("Updating appointment");
         const appointmentToUpdate = {
           userId,
           appointmentId: appointment?.$id ?? "",
